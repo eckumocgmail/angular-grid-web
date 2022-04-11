@@ -1,0 +1,21 @@
+.app-services-container
+{
+    padding: 20px;
+}
+
+.app-services-grid-container
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;    
+    overflow-y: auto;
+    width: 100%;
+    justify-items: center;
+    justify-content: center;
+}
+
+.app-services-grid-container > *
+{
+    max-width: 220px;
+    margin: 10px;
+}

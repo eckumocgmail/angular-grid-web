@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "eckumoc-angular-rest": {
+      "hosting": {
+        "FrontendFirebase": [
+          "eckumoc-angular-rest"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "eckumoc-angular-rest"
+  }
+}

@@ -1,0 +1,31 @@
+<mat-sidenav-container class="app-container">
+  <mat-sidenav mode="side" [position]="appConfigService.sidenavPosition" [opened]="menuIsVisible" (mouseleave)="onMouseLeavedSidenav($event)">    
+    <app-nav></app-nav>
+  </mat-sidenav>  
+  <mat-sidenav-content>
+    <mat-toolbar [color]="appConfigService.toolbarColor">
+      <mat-toolbar-row>
+        
+        <span> 
+          EcKuMoC
+
+        </span>     
+        <button mat-icon-button>
+          <mat-icon (click)="onMenuClicked($event)">menu</mat-icon>
+        </button>                               
+        <mat-form-field tabindex="1" class="justify-right">
+          <input matInput name="search" type="search" value="Поиск">               
+        </mat-form-field>      
+        <button mat-icon-button routerLink="config">
+          <mat-icon (click)="onSettingsClicked($event)">settings </mat-icon>
+        </button>        
+        <button mat-icon-button routerLink="services">
+          <mat-icon (click)="onAppsClicked($event)">apps</mat-icon>
+        </button>        
+      </mat-toolbar-row>
+    </mat-toolbar>    
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> 
+ 
+ 

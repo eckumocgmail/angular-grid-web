@@ -1,0 +1,11 @@
+.app-container
+{
+    width: 100%;
+    height: 100%;
+}
+
+.justify-right
+{
+    justify-self: flex-end;
+    margin-left: auto;    
+}

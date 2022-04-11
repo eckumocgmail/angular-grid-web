@@ -1,0 +1,36 @@
+<ul class="app-config-container">
+    <h2>Настройки</h2>
+    
+    <mat-checkbox 
+        [checked]="appConfigService.sidenavIsAutoClosable"
+        [color]="'primary'"
+        [indeterminate]="false"
+        (change)="onSidenavIsAutoClosableOptionChanged($event.checked)">
+        
+        Автоматически скрывать боковую панель
+
+    </mat-checkbox>
+     
+
+    <hr/><div>Положение боковой панели</div>
+    <mat-form-field appearance="fill">
+        <mat-label>Выберите положение</mat-label>
+        <mat-select matNativeControl required (selectionChange)="onSidenavPositionChanged($event)" value="start">
+            <mat-option value="end">справа</mat-option>
+            <mat-option value="start">слева</mat-option>            
+        </mat-select>
+    </mat-form-field> 
+
+
+    <hr/><div>Цвет панели инструментов</div>
+    <mat-form-field appearance="fill">
+        <mat-label>Выберите цвет</mat-label>
+        <mat-select matNativeControl required (selectionChange)="onToolbarColorChanged($event)" value="primary">
+            <mat-option value="primary">обычный</mat-option>
+            <mat-option value="secondary">светлый</mat-option>
+            <mat-option value="accent">яркий</mat-option>            
+        </mat-select>
+    </mat-form-field> 
+       
+    
+</ul>

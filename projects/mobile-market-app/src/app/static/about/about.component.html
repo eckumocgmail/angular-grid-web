@@ -1,0 +1,20 @@
+<div class="app-services-container">
+    <h2> Служебные функции </h2>
+    <div class="app-services-grid-container">
+          
+        <mat-card *ngFor="let service of appServicesService.services">
+            <mat-card-header>
+                <div mat-card-avatar></div>
+                <mat-card-title> {{service.title}} </mat-card-title>
+                <mat-card-subtitle> {{service.subtitle}} </mat-card-subtitle>
+            </mat-card-header>
+            <div mat-card-image></div>
+            <mat-card-content>
+                <p> {{service.description}} </p>
+            </mat-card-content>
+            <mat-card-actions>                
+                <button mat-button *ngFor="let action of service.actions"> {{action.label}} </button>
+            </mat-card-actions>
+        </mat-card>                
+    </div>
+</div>

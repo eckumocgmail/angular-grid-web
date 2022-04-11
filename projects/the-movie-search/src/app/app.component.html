@@ -1,0 +1,44 @@
+<app-navbar [brand]="app.content.navbarBrand" 
+            [menuitems]="app.content.navbarMenuitems">
+    <app-search [inputSearchOptions]="app.search.options"
+                (searchQueryChanged)="app.search.options = app.search.filter( $event  )"
+                (searchRequest)="app.search.search( $event,onSearchResult,onSearchError );"
+                class="w-100">
+        
+    </app-search>
+</app-navbar>
+ 
+
+<div style="width: 100%; height: 100%; overflow-y: auto; resize: none; position: fixed;">
+    <div style="padding: 20px; margin: auto; justify-content: center; "
+        class="d-flex flex-row flex-wrap">
+    
+        <router-outlet></router-outlet>
+        <div class="alert alert-info w-100" *ngIf="searchResults.length==0">
+            Ничего не найдено
+        </div>
+        <div class="d-flex flex-row flex-wrap w-100" *ngIf="searchResults.length!=0" style="justify-content: center;">
+            <div class="card" 
+                *ngFor="let searchResult of searchResults"
+                style="width: 18rem; ">
+                <img class="card-img-top" 
+                    *ngIf="searchResult.poster_path"
+                    src="http://image.tmdb.org/t/p/w500{{searchResult.poster_path}}?api_key={{app.js.scope.api_key}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"> {{ searchResult.title }}  </h5>
+                    <label style="align-self: flex-end; margin-left: auto;"> {{ searchResult.release_date }} </label>            
+                    <p class="card-text"> {{ searchResult.overview }} </p>
+                    
+                    <a href="#" class="btn btn-primary">Start</a>
+                </div>
+            </div>     
+            <div class="w-100" style="padding: 20px; margin-bottom: 200px">
+                <button class="btn btn-secondary w-100"> Go top of page </button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+

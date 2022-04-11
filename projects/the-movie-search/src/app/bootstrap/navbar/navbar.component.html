@@ -1,0 +1,30 @@
+<!-- <nav class="navbar navbar-dark bg-dark"></nav>   -->
+  <!-- <nav class="navbar navbar-dark bg-primary"></nav>   -->
+  <!-- <nav class="navbar navbar-light" style="background-color: #e3f2fd;"></nav> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-left: 20px; padding-right: 20px;">
+
+    <a class="navbar-brand" href="#"> {{ brand }} </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" 
+         id="navbarSupportedContent">
+   
+      <ng-content></ng-content>
+
+      <ul class="navbar-nav">
+        <li class="nav-item active" *ngFor="let menuitem of menuitems">
+            <a class="btn nav-link"
+               [routerLink]="[ menuitem.link ]"> 
+                {{ menuitem.label }}
+            </a>
+        </li>       
+      </ul>
+      
+    </div>
+  </nav>
+
+
+  
