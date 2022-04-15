@@ -10,7 +10,9 @@ export class NavBarComponent {
   
   brand: string = 'Wellcome application';
   menuitems: Array<{
-    label: string
+    label: string,
+    isEnabled: ()=>boolean,
+    onclick: ()=>any
   }> = [];
 
 }

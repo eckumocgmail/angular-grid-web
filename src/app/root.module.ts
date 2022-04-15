@@ -7,9 +7,10 @@ import { IndexRouteComponent } from 'projects/the-movie-search/src/app/app-index
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { CustomDataTableModule } from './custom-data-table/custom-data-table.module';
 import { AppModule } from 'projects/the-movie-search/src/app/app.module';
 import { UiBootstrapModule } from 'projects/the-movie-search/src/app/bootstrap/bootstrap.module';
+import { RootService } from './root.service';
+import { ValidationService } from './validation.service';
 
 @NgModule({
   declarations: [
@@ -18,20 +19,14 @@ import { UiBootstrapModule } from 'projects/the-movie-search/src/app/bootstrap/b
   imports: [
     BrowserModule,
     HttpClientModule,
-    UiBootstrapModule,
-    RouterModule.forRoot([
-      { path: '',               pathMatch: 'full', redirectTo: '/index' },
-      { path: 'index/:query',   component:  IndexRouteComponent, pathMatch: 'full' },
-      { path: 'index',          component:  IndexRouteComponent, pathMatch: 'full' },
-      { path: '**',             pathMatch: 'full', redirectTo: '/index' }
-    ] ),
+    UiBootstrapModule,   
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    AppModule, 
-    CustomDataTableModule
+    AppModule
+     
   ],
-  providers: [],
+  providers: [RootService, ValidationService],
   bootstrap: [RootComponent]
 })
 export class RootModule { }

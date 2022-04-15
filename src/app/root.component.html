@@ -1,44 +1,181 @@
-<app-navbar [brand]="app.content.navbarBrand" 
-            [menuitems]="app.content.navbarMenuitems">
-    <app-search [inputSearchOptions]="app.search.options"
-                (searchQueryChanged)="app.search.options = app.search.filter( $event  )"
-                (searchRequest)="app.search.search( $event,onSearchResult,onSearchError );"
+<app-navbar [brand]="navbarBrand" 
+            [menuitems]="navbarMenuitems">
+    <app-search [inputSearchOptions]="searchOptions"
+                (searchQueryChanged)="onSearchInput($event)"
+                (searchRequest)="onSearchResult( $event );"
                 class="w-100">
         
     </app-search>
 </app-navbar>
  
 
+
 <div style="width: 100%; height: 100%; overflow-y: auto; resize: none; position: fixed;">
-    <div style="padding: 20px; margin: auto; justify-content: center; "
-        class="d-flex flex-row flex-wrap">
+    <div style="padding: 20px; margin: 0px;; justify-content: center; width: 100%;"
+        class="d-flex flex-row flex-wrap" >
   
-        <router-outlet></router-outlet>
-        <div class="alert alert-info w-100" *ngIf="searchResults.length==0">
-            Ничего не найдено
-        </div>
-        <div class="d-flex flex-row flex-wrap w-100" *ngIf="searchResults.length!=0" style="justify-content: center;">
-            <div class="card" 
-                *ngFor="let searchResult of searchResults"
-                style="width: 18rem; ">
-                <img class="card-img-top" 
-                    *ngIf="searchResult.poster_path"
-                    src="http://image.tmdb.org/t/p/w500{{searchResult.poster_path}}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"> {{ searchResult.title }}  </h5>
-                    <label style="align-self: flex-end; margin-left: auto;"> {{ searchResult.release_date }} </label>            
-                    <p class="card-text"> {{ searchResult.overview }} </p>
-                    
-                    <a href="#" class="btn btn-primary">Start</a>
-                </div>
-            </div>     
-            <div class="w-100" style="padding: 20px; margin-bottom: 200px">
-                <button class="btn btn-secondary w-100"> Go top of page </button>
+  
+        <div style="padding: 20px; width: 100%;">
+            <h2> Customizble Grid Component </h2>
+            <h4> You customize column width of this table forever. </h4>  
+            <p> Please Press 'Ctrl' button when you need resize</p>
+            <div *ngIf="selectedColumn!=-1" > 
+
+              <!-- 
+              <p> Ширина таблицы:  {{ tableWidth }}</p>            
+
+              Ширина колонки: {{tableModel.tableColumns[selectedColumn].RusTitle}} = 
+              {{tableModel.tableColumns[selectedColumn].RelativeWidth}}
+              {{$relative('tableElement',tableModel.tableColumns[selectedColumn].RelativeWidth)}}
+
+              <span class="btn btn-sm" (click)="setLessWidthForSelectedColumnClicked()"> уменьшить </span>
+              <span class="btn btn-sm" (click)="setMoreWidthForSelectedColumnClicked()"> увеличить </span>
+
+
+
+              <table border="1">
+                <tr>
+                  <td> ИД </td>
+                  <td> Заголовок </td>
+                  <td> Свойство </td>
+                  <td> Ширина( относительная ) </td>
+                  <td> Ширина( абсолютная ) </td>
+                  <td> Ширина( фактическая ) </td>
+                 
+                </tr>
+                <tr *ngFor="let column of tableModel.tableColumns">
+                  <td>{{column.ID}}</td>
+                  <td>{{column.RusTitle}}</td>
+                  <td>{{column.BindProperty}}</td>
+  
+                  <td>{{column.RelativeWidth}}</td>
+                  <td>{{$relative('tableElement',column.RelativeWidth) }}</td>
+                  <td></td>                
+                </tr>
+              </table> -->
             </div>
-        </div>
+           
+            <small>{{message}}</small>
+            
+            
+            <table class="table" *ngIf="ready" style="width: 100%;"  id="tableElement"
+                   (keydown)="onTableKeyDown($event)"
+                   (keyup)="onTableKeyUp($event)" >
+              <colgroup>
+                <col span="1" [ngStyle]="{  'width': $relative('tableElement',tableColumn.RelativeWidth)+'px'}" 
+                     *ngFor="let tableColumn of tableModel.tableColumns" >               
+              </colgroup>
+              <thead>
+                <tr>
+                    <th scope="col" 
+                        style="border-left: 2px solid black;"
+                        id="tableHeader{{tableColumn.ID}}"
+                        [ngStyle]="{ cursor: cursor }"
+                      
+                        *ngFor="let tableColumn of tableModel.tableColumns" >
+                        {{tableColumn.RusTitle}}
+                    </th>                    
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let employee of gridData" id="row_{{gridData.indexOf(employee)}}"     
+               
+                    (dblclick)="editDialog(gridData.indexOf(employee));"
+                    (mouseenter)="focusedRow=gridData.indexOf(employee)"
+                    (mouseleave)="focusedRow=-1"
+                    [ngStyle]="{ border:  isRowHighlight(gridData.indexOf(employee))?'1px solid black':'0px solid white',
+                                 padding: isRowHighlight(gridData.indexOf(employee))?'0px':'1px',
+                                 cursor: this.cursor }"> 
+                    <td id="cell_{{gridData.indexOf(employee)}}_{{tableModel.tableColumns.indexOf(tableColumn)}}" 
+                        scope="col" *ngFor="let tableColumn of tableModel.tableColumns" style="width: 20px;"
+                        [ngStyle]="{ 
+                          border: 
+                            selectionMode == 'rows'?
+                            (isRowHighlight(tableColumn)?'1px solid black':'0px solid white'):
+                            'none',
+                          backgroundColor: selectionMode=='rows' && selectedRows.indexOf(gridData.indexOf(employee))!=-1? 'black': 'white',
+                          color:  selectionMode=='rows' && selectedRows.indexOf(gridData.indexOf(employee))!=-1? 'white': 'black'
+                        }"                            
+                        (mousemove)="onMosuseMoved($event, tableColumn)"
+                        (mouseup)="onMouseUp($event)"
+                        (mousedown)="onMouseDown($event)"
+                        (click)="onClicked(  $event, gridData.indexOf(employee), tableModel.tableColumns.indexOf(tableColumn)  )"
+                        (mouseenter)="focusedColumn=tableModel.tableColumns.indexOf(tableColumn)"
+                        (mouseleave)="focusedColumn=-1">
+                        {{employee[tableColumn.BindProperty]}}                                
+                    </td>                           
+                </tr>                
+              </tbody>
+            </table>
+          </div>
 
-
+      
     </div>
 </div>
 
 
+
+<nav class="navbar fixed-bottom navbar-light bg-light">
+  <a class="navbar-brand">Выбрано элементов: 
+      {{ selectedRows.length }}
+      {{ { resizeColumnEnabled: resizeColumnEnabled, selectionMode: selectionMode, width: getWidthes()}|json }}
+
+  </a>
+  
+</nav>
+
+
+     
+<!-- Button trigger modal -->
+<button type="button" id="showModalButton" class="btn btn-primary" style="display: none;" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel"> Отредактируйте данные </h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" (input)="onInput($event)">
+        
+        <div class="form-group">
+          <label for="NameInput">Имя</label>
+          <input type="text" name="name" class="form-control" id="NameInput" [value]="inputModel.name">
+
+          <small *ngFor="let error of inputErrors.name" class="form-text text-danger">{{error}}</small>
+        </div>
+        <div class="form-group">
+          <label for="SurnameInput">Фамилия</label>
+          <input type="text" name="surname" class="form-control" id="SurnameInput"  [value]="inputModel.surname">
+          <small *ngFor="let error of inputErrors.surname" class="form-text text-danger">{{error}}</small>
+        </div>
+        <div class="form-group">
+          <label for="EmailInput">Электронная почта</label>
+          <input type="text" name="email"  class="form-control" id="EmailInput"  [value]="inputModel.email">
+          <small *ngFor="let error of inputErrors.email" class="form-text text-danger">{{error}}</small>
+        </div>
+        <div class="form-group">
+          <label for="PhoneInput">Номер телефона</label>
+          <input type="text" name="phone" class="form-control" id="PhoneInput"  [value]="inputModel.phone">
+          <small *ngFor="let error of inputErrors.phone" class="form-text text-danger">{{error}}</small>
+        </div> 
+
+
+      </div>
+      <div class="modal-footer">
+        <div *ngIf="isValide()">
+          <button type="button" class="btn btn-primary" (click)="onSaveClicked() && closeModal()"> Сохранить </button>
+        </div>
+        <div *ngIf="!isValide()">
+          <button type="button" class="btn btn-primary" disabled data-dismiss="modal"> Сохранить </button>
+        </div>
+        <button type="button" id="cancelButton" class="btn btn-secondary" data-dismiss="modal"> Отмена </button>
+      </div>
+    </div>
+  </div>
+</div>
