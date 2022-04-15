@@ -27,7 +27,7 @@ export class RootService
     }
 
     getRemote( setter ){
-        this.http.get<contacts>('http://87.242.76.45/testdata.json')
+        this.http.get<contacts>('/assets/testdata.json')
             .subscribe( this.onSuccessDataRecivedCallback(setter));
     }
 

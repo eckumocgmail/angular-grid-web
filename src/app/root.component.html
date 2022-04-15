@@ -16,9 +16,14 @@
   
   
         <div style="padding: 20px; width: 100%;">
-            <h2> Customizble Grid Component </h2>
-            <h4> You customize column width of this table forever. </h4>  
-            <p> Please Press 'Ctrl' button when you need resize</p>
+            <h2> Найстройка представления 'Таблица'</h2>
+            
+            <p> Для установки ширины столбца щелкните на любую ячейку с данными, зажмите ControlLeft, 
+              подведите курсор к левой или правой границе, когда значок на курсоре покажит иконку Сохранить
+              стрелками зажмите левую кнопку миши и медленно перестите курсор лувее или правее.
+
+
+            </p>
             <div *ngIf="selectedColumn!=-1" > 
 
               <!-- 
@@ -67,8 +72,7 @@
               </colgroup>
               <thead>
                 <tr>
-                    <th scope="col" 
-                        style="border-left: 2px solid black;"
+                    <th scope="col"                
                         id="tableHeader{{tableColumn.ID}}"
                         [ngStyle]="{ cursor: cursor }"
                       
@@ -96,7 +100,7 @@
                           backgroundColor: selectionMode=='rows' && selectedRows.indexOf(gridData.indexOf(employee))!=-1? 'black': 'white',
                           color:  selectionMode=='rows' && selectedRows.indexOf(gridData.indexOf(employee))!=-1? 'white': 'black'
                         }"                            
-                        (mousemove)="onMosuseMoved($event, tableColumn)"
+                        (mousemove)="onMouseMoved($event, tableColumn)"
                         (mouseup)="onMouseUp($event)"
                         (mousedown)="onMouseDown($event)"
                         (click)="onClicked(  $event, gridData.indexOf(employee), tableModel.tableColumns.indexOf(tableColumn)  )"
