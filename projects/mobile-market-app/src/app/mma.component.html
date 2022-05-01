@@ -1,6 +1,7 @@
-<mat-sidenav-container class="app-container">
+<mat-sidenav-container >
   <mat-sidenav mode="side" [position]="appConfigService.sidenavPosition" [opened]="menuIsVisible" (mouseleave)="onMouseLeavedSidenav($event)">    
     <app-nav></app-nav>
+    <ng-content></ng-content>
   </mat-sidenav>  
   <mat-sidenav-content>
     <mat-toolbar [color]="appConfigService.toolbarColor">

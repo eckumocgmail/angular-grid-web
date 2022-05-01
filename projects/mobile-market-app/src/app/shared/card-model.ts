@@ -1,4 +1,6 @@
-import { ActionModel } from "./action-model";
+export class ActionModel{
+    constructor(public label: string, public href: string){}
+}
 
 export class CardModel {
 

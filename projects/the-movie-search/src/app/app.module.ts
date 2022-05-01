@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
-import { UiBootstrapModule } from './bootstrap/bootstrap.module';
+import { UiBootstrapModule } from '../../../mobile-market-app/bootstrap/bootstrap.module';
 import { RouterModule } from '@angular/router';
 import { IndexRouteComponent } from './app-index.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

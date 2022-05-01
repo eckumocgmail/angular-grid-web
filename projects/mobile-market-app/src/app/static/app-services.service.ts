@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActionModel } from '../shared/action-model';
-import { CardModel } from '../shared/card-model';
+ 
+import { CardModel,ActionModel } from '../shared/card-model';
 
 @Injectable({
   providedIn: 'root'

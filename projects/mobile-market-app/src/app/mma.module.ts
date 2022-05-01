@@ -12,17 +12,29 @@ import { MatInputModule } from '@angular/material/input';
 import { StaticModule } from './static/static.module';
 import { RouterModule } from '@angular/router';
 import { AreasModule } from './areas/areas.module';
+import { SharedModule } from './shared/shared.module';
+import { MMARootComponent } from './mma-root.component';
 
 @NgModule({
   declarations: [
-    MMAComponent    
+    MMAComponent,
+    MMARootComponent 
+  ],
+  exports: [
+    MMAComponent,
+    StaticModule,  
+    AreasModule, 
+    SharedModule 
   ],
   imports: [
     
     StaticModule,  
     AreasModule, 
+    SharedModule, 
+    StaticModule,
+
     BrowserModule,
-    AreasModule,
+   
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,

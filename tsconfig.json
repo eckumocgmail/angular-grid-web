@@ -16,6 +16,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": false,
+    "paths": {
+      "rest-api-lib": [
+        "dist/rest-api-lib/rest-api-lib",
+        "dist/rest-api-lib"
+      ]
+    },
     "target": "es2017",
     "module": "es2020",
     "lib": [

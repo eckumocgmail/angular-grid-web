@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { ContentService } from "./service/content.service";
+import { ContentService } from "./content.service";
  
-import { AngularJsService } from "./service/angular-js.service";
-import { SearchService } from "./service/search.service";
+import { AngularJsService } from "./angular-js.service";
+import { SearchService } from "./search.service";
 
 /**
  * This service collect all services of application at top level.

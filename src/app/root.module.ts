@@ -8,9 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { AppModule } from 'projects/the-movie-search/src/app/app.module';
-import { UiBootstrapModule } from 'projects/the-movie-search/src/app/bootstrap/bootstrap.module';
+import { UiBootstrapModule } from 'projects/mobile-market-app/bootstrap/bootstrap.module';
 import { RootService } from './root.service';
 import { ValidationService } from './validation.service';
+import { MMAModule } from 'projects/mobile-market-app/src/app/mma.module';
+import { StaticModule } from 'projects/mobile-market-app/src/app/static/static.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,9 @@ import { ValidationService } from './validation.service';
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    AppModule
-     
+    AppModule,
+    MMAModule,
+    StaticModule
   ],
   providers: [RootService, ValidationService],
   bootstrap: [RootComponent]

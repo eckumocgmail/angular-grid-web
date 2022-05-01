@@ -24,8 +24,7 @@ export class RootComponent implements OnInit, AfterContentInit{
     //{label: 'регистрация',      enabled: true, onclick: ()=>{ this.resetConfiguration(); }},
     {label: 'сброс',      isEnabled: ()=>{ return true; }, onclick: ()=>{ this.resetConfiguration(); }},
     {label: 'добавить',   isEnabled: ()=>{ return true; }, onclick: ()=>{ this.addRecord(); }},
-    {label: 'удалить',    isEnabled: ()=>{ return this.selectedRows.length>0; }, onclick: ()=>{ this.removeRecord(); }},    
-    {label: 'настроить',  isEnabled: ()=>{ return true; }, onclick: ()=>{ this.setupConfiguration(); }},
+    {label: 'удалить',    isEnabled: ()=>{ return this.selectedRows.length>0; }, onclick: ()=>{ this.removeRecord(); }},        
   ];
   searchQuery = '';
   searchOptions = [];  

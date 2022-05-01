@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConstructorComponent } from './constructor.component';
 import { SharedModule } from 'projects/mobile-market-app/src/app/shared/shared.module';
+import { MatTreeModule } from '@angular/material/tree';
 
 
 
@@ -11,7 +12,8 @@ import { SharedModule } from 'projects/mobile-market-app/src/app/shared/shared.m
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatTreeModule
   ]
 })
 export class ConstructorModule { }

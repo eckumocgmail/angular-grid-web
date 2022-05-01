@@ -3,7 +3,7 @@ import { AppConfigService } from './static/app-config.service';
 import { MMAService } from './mma.service';
 
 @Component({
-  selector:     'mobile-market-root',
+  selector:     'mma-app',
   templateUrl:  './mma.component.html',
   styleUrls:    ['./mma.component.css']
 })
